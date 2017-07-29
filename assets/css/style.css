@@ -30,3 +30,8 @@ input, .btn{
 	background-color: #004d99;
 	color: #ffffff;
 }
+
+.searchTermsBtn{
+	margin: 10px;
+}
+
