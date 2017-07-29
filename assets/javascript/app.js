@@ -32,7 +32,7 @@ $(document).ready(function(){
   	image.attr("data-animate", animateURL);
   	image.attr("data-state", state);
   	image.attr("data-rating", rating);
-  	image.class("results-image");
+  	image.addClass("results-image");
   	image.attr("id", iD);
   	if(state === "still"){
   		image.attr("src", stillURL);
@@ -41,7 +41,7 @@ $(document).ready(function(){
   		image.attr("src", animateURL);
   	}
   	paragraph.text("Rated: " + rating);
-  	paragraph.class("results-p");
+  	paragraph.addClass("results-p");
   	div.append(image);
   	div.append(paragraph);
   	searchResults.append(div);
@@ -55,15 +55,18 @@ $(document).ready(function(){
   var getAndDisplayGifs = function(searchTerm){
   	var uriSearchTerm = encodeURIComponent(searchTerm)
   	var urlWithSearchTerm = "https://api.giphy.com/v1/gifs/search?api_key=3a4a1f1b1bcd4f59beca120bfe5622f4&limit=10&lang=en&q=" + uriSearchTerm;
+  	console.log(urlWithSearchTerm);
   	$.ajax({
   		url: urlWithSearchTerm,
-  		method: "GET"}).done(function(response){
-  			for(var i=0; i<response.length; i++){
-  				var rating = response.rating;
-  				var stillURL = response.images.fixed_width_still;
-  				var animateURL = response.images.fixed_width;
+  		method: "GET"
+  		}).done(function(response) {
+  			console.log(response);
+  			for(var i=0; i<response.data.length; i++){
+  				var rating = response.data[i].rating;
+  				var stillURL = response.data[i].images.fixed_width_still.url;
+  				var animateURL = response.data[i].images.fixed_width.url;
   				var state = "still";
-  				renderGifs(rating, stillURL, animateURL, state, i);
+  				renderGif(rating, stillURL, animateURL, state, i);
   			}
   		});
   };
