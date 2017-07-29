@@ -1,0 +1,32 @@
+body{
+	background-color: #b3d9ff;
+	font-family: 'Droid Sans', sans-serif;
+}
+
+.navbar{
+	background-color: #e6f2ff;
+	color: #000d1a;
+}
+
+.navbar-brand{
+	font-size: 38px;
+	font-family: 'Abril Fatface', cursive;
+}
+
+.panel-heading{
+	background-color: #e6f2ff;
+	color: #000d1a;
+}
+
+.panel-title{
+	font-size: 20px;
+}
+
+input, .btn{
+	font-family: 'Droid Sans', sans-serif;
+}
+
+.btn{
+	background-color: #004d99;
+	color: #ffffff;
+}
