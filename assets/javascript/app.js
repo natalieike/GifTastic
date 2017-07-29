@@ -55,12 +55,10 @@ $(document).ready(function(){
   var getAndDisplayGifs = function(searchTerm){
   	var uriSearchTerm = encodeURIComponent(searchTerm)
   	var urlWithSearchTerm = "https://api.giphy.com/v1/gifs/search?api_key=3a4a1f1b1bcd4f59beca120bfe5622f4&limit=10&lang=en&q=" + uriSearchTerm;
-  	console.log(urlWithSearchTerm);
   	$.ajax({
   		url: urlWithSearchTerm,
   		method: "GET"
   		}).done(function(response) {
-  			console.log(response);
   			for(var i=0; i<response.data.length; i++){
   				var rating = response.data[i].rating;
   				var stillURL = response.data[i].images.fixed_width_still.url;
@@ -69,6 +67,22 @@ $(document).ready(function(){
   				renderGif(rating, stillURL, animateURL, state, i);
   			}
   		});
+  };
+
+  //Decide whether to animate or pause gif based on status, and replace the src with the correct URL
+  var animateOrPause = function(imgID){
+  	var image = document.getElementById(imgID);
+  	var state = $(image).attr("data-state");
+  	var animateURL = $(image).attr("data-animate");
+  	var stillURL = $(image).attr("data-still");
+  	if(state === "still"){
+  		$(image).attr("src", animateURL);
+  		$(image).attr("data-state", "animate");
+  	}
+  	else{
+  		$(image).attr("src", stillURL);
+  		$(image).attr("data-state", "still");
+  	}
   };
 
 
@@ -86,7 +100,6 @@ $(document).ready(function(){
   buttonPanel.on("click", ".searchTermsBtn", function(){
    	event.preventDefault();
   	var searchTerm = $(this).attr("id");
-  	console.log(searchTerm);
   	searchResults.empty();
   	getAndDisplayGifs(searchTerm);
   });
@@ -94,7 +107,7 @@ $(document).ready(function(){
   //Event handler - Click on results gif to animate
   searchResults.on("click", ".results-image", function(){
   	var imgID = $(this).attr("id");
-  	swapImgUrl(imgID);
+  	animateOrPause(imgID);
   });
 
 });
