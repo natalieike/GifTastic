@@ -34,6 +34,7 @@ $(document).ready(function(){
   	image.attr("data-rating", rating);
   	image.addClass("results-image");
   	image.attr("id", iD);
+  	div.addClass("imgClass");
   	if(state === "still"){
   		image.attr("src", stillURL);
   	}
