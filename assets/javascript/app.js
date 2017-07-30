@@ -95,6 +95,7 @@ $(document).ready(function(){
    	event.preventDefault();
   	var searchTerm = $("#searchForm").val();
   	addAButton(searchTerm);
+  	$("#searchForm").val("");
   })
 
   //Search term button event handler
