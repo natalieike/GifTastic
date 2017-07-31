@@ -6,7 +6,7 @@ $(document).ready(function(){
 	var searchResults = $("#searchResults");
 	var savedSearchList = $("#savedSearchList");
 
-	// Function for displaying the search term buttons.  From in-class activity
+	//(depricated) Function for displaying the search term buttons.  From in-class activity 
   var renderButtons = function(){
     buttonPanel.empty();
     for (var i=0; i<searchKeys.length; i++){
@@ -21,7 +21,7 @@ $(document).ready(function(){
   //Adds a button to the buttonPanel
   var addAButton = function(newKey){
   	searchKeys.push(newKey);
-//  	renderButtons();
+//	 	renderButtons();
   	localStorage.setItem("searchKeys", JSON.stringify(searchKeys));
   	addDropdownListItems();
   };
@@ -114,6 +114,7 @@ $(document).ready(function(){
   	addAButton(searchTerm);
   })
 
+  //Clears search field and search results
   $(document).on("click", "#clear", function(event){
    	event.preventDefault();
   	$("#searchForm").val("");
