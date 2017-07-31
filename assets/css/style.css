@@ -35,10 +35,6 @@ input, .btn{
 	margin: 10px;
 }
 
-#searchResults {
-	
-}
-
 .imgClass {
 	margin: 20px;
 	overflow: auto;
@@ -49,3 +45,7 @@ input, .btn{
 	margin-top: 10px;
 }
 
+.btn-custom{
+	margin-top: 8px;
+	margin-left: 10px;
+}

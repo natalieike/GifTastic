@@ -15,24 +15,47 @@
      		<p class="navbar-brand">Gif-Tastic!</p>
     	</div><!-- /.navbar-header -->
     	<div class="navbar-right">
-      	<form class="navbar-form navbar-right">
-        	<div class="form-group">
-          	<input type="text" class="form-control" id="searchForm" placeholder="Add a Keyword">
-        	</div>
-        	<button type="submit" class="btn" id="submit">Submit</button>
-      	</form>
+      	<ul class="nav navbar-nav navbar-right">
+      		<li>
+      			<form class="navbar-form navbar-right">
+        			<div class="form-group">
+          			<input type="text" class="form-control" id="searchForm" placeholder="Type a Keyword">
+        			</div>
+        			<button class="btn" id="submit">Search</button>
+      			</form>
+      		</li>
+      		<li class="btn-custom">
+        		<button class="btn" id="clear">Clear</button>
+        	</li>
+        	<li class="btn-custom">
+        		<button class="btn" id="addToSearch">Add to Saved Search</button>
+        	</li>
+        	<li class="btn-custom">
+      			<div class="btn-group">
+  						<button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  							Saved Searches
+  							<span class="caret"></span>
+  						</button>
+  						<ul class="dropdown-menu" id="savedSearchList">
+  						</ul>
+						</div><!--/.btn-group -->
+					</li>
+				</ul>	
       </div><!-- /.navbar-right -->	
   	</div><!-- /.container -->
 	</nav>
 
 	<div class="container">
+<!--
 		<div class="panel">
   		<div class="panel-heading">
     		<h3 class="panel-title">Saved Search Keys</h3>
-  		</div> <!-- /.panel-heading -->
+  		</div> --><!-- /.panel-heading -->
+<!--  		
  			<div class="panel-body" id="buttonPanel">
-  		</div> <!-- /.panel-body -->
-		</div> <!-- /.panel -->		
+  		</div> --><!-- /.panel-body -->
+<!--		</div> --><!-- /.panel -->		
+
 		<div class="panel">
   		<div class="panel-heading">
     		<h3 class="panel-title">Search Results</h3>

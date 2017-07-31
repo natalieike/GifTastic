@@ -1,9 +1,10 @@
 $(document).ready(function(){
-	var searchKeys = ["face palm", "head desk", "happy dance", "puppies"]; //Search terms to render as buttons
+	var searchKeys = JSON.parse(localStorage.getItem("searchKeys")) || ["face palm", "head desk", "happy dance", "puppies"]; //Search terms to render as buttons.  Pull from LocalStorage if there are saved searches, otherwise use default list
 
 	//Variables to hold div locations
 	var buttonPanel = $("#buttonPanel");
 	var searchResults = $("#searchResults");
+	var savedSearchList = $("#savedSearchList");
 
 	// Function for displaying the search term buttons.  From in-class activity
   var renderButtons = function(){
@@ -20,7 +21,9 @@ $(document).ready(function(){
   //Adds a button to the buttonPanel
   var addAButton = function(newKey){
   	searchKeys.push(newKey);
-  	renderButtons();
+//  	renderButtons();
+  	localStorage.setItem("searchKeys", JSON.stringify(searchKeys));
+  	addDropdownListItems();
   };
 
   //Renders a gif in the Search Results div
@@ -86,20 +89,47 @@ $(document).ready(function(){
   	}
   };
 
+  //Populates the Saved Searches dropdown list
+  var addDropdownListItems = function(){
+  	searchKeys = JSON.parse(localStorage.getItem("searchKeys")) || ["face palm", "head desk", "happy dance", "puppies"];
+    savedSearchList.empty();
+    for (var i=0; i<searchKeys.length; i++){
+      var listItem = $("<li>");
+      listItem.addClass("listItem");
+      listItem.attr("id", searchKeys[i])
+      listItem.html("<a href=#>" + searchKeys[i] + "</a>");
+      savedSearchList.append(listItem);
+    }
+  }
+
 
   //First button render to show default button set
-  renderButtons();
+  //renderButtons();
+  addDropdownListItems();
 
   //Search button event handler
-  $("#submit").click(function(){
+  $(document).on("click", "#addToSearch",function(){
    	event.preventDefault();
   	var searchTerm = $("#searchForm").val();
   	addAButton(searchTerm);
-  	$("#searchForm").val("");
   })
 
+  $(document).on("click", "#clear", function(){
+   	event.preventDefault();
+  	$("#searchForm").val("");
+  	$("#searchResults").empty();
+  });
+
   //Search term button event handler
-  buttonPanel.on("click", ".searchTermsBtn", function(){
+  $(document).on("click", "#submit", function(){
+   	event.preventDefault();
+  	var searchTerm = $("#searchForm").val();
+  	searchResults.empty();
+  	getAndDisplayGifs(searchTerm);
+  });
+
+  //Drop-down event handler
+  $(document).on("click", ".listItem", function(){
    	event.preventDefault();
   	var searchTerm = $(this).attr("id");
   	searchResults.empty();
