@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	var searchKeys = ["face palm", "head desk", "happy dance", "puppies"]; //Search terms to render as buttons
+	var searchKeys = JSON.parse(localStorage.getItem("searchKeys")) || ["face palm", "head desk", "happy dance", "puppies"]; //Search terms to render as buttons.  Pull from LocalStorage if there are saved searches, otherwise use default list
 
 	//Variables to hold div locations
 	var buttonPanel = $("#buttonPanel");
@@ -21,7 +21,8 @@ $(document).ready(function(){
   //Adds a button to the buttonPanel
   var addAButton = function(newKey){
   	searchKeys.push(newKey);
-  	renderButtons();
+//  	renderButtons();
+  	localStorage.setItem("searchKeys", JSON.stringify(searchKeys));
   	addDropdownListItems();
   };
 
@@ -90,6 +91,7 @@ $(document).ready(function(){
 
   //Populates the Saved Searches dropdown list
   var addDropdownListItems = function(){
+  	searchKeys = JSON.parse(localStorage.getItem("searchKeys")) || ["face palm", "head desk", "happy dance", "puppies"];
     savedSearchList.empty();
     for (var i=0; i<searchKeys.length; i++){
       var listItem = $("<li>");
@@ -102,11 +104,11 @@ $(document).ready(function(){
 
 
   //First button render to show default button set
-  renderButtons();
+  //renderButtons();
   addDropdownListItems();
 
   //Search button event handler
-  $("#submit").click(function(){
+  $(document).on("click", "#addToSearch",function(){
    	event.preventDefault();
   	var searchTerm = $("#searchForm").val();
   	addAButton(searchTerm);
@@ -115,11 +117,19 @@ $(document).ready(function(){
   $(document).on("click", "#clear", function(){
    	event.preventDefault();
   	$("#searchForm").val("");
-  	console.log(searchKeys);
+  	$("#searchResults").empty();
   });
 
   //Search term button event handler
-  buttonPanel.on("click", ".searchTermsBtn", function(){
+  $(document).on("click", "#submit", function(){
+   	event.preventDefault();
+  	var searchTerm = $("#searchForm").val();
+  	searchResults.empty();
+  	getAndDisplayGifs(searchTerm);
+  });
+
+  //Drop-down event handler
+  $(document).on("click", ".listItem", function(){
    	event.preventDefault();
   	var searchTerm = $(this).attr("id");
   	searchResults.empty();
