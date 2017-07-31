@@ -4,6 +4,7 @@ $(document).ready(function(){
 	//Variables to hold div locations
 	var buttonPanel = $("#buttonPanel");
 	var searchResults = $("#searchResults");
+	var savedSearchList = $("#savedSearchList");
 
 	// Function for displaying the search term buttons.  From in-class activity
   var renderButtons = function(){
@@ -21,6 +22,7 @@ $(document).ready(function(){
   var addAButton = function(newKey){
   	searchKeys.push(newKey);
   	renderButtons();
+  	addDropdownListItems();
   };
 
   //Renders a gif in the Search Results div
@@ -86,17 +88,35 @@ $(document).ready(function(){
   	}
   };
 
+  //Populates the Saved Searches dropdown list
+  var addDropdownListItems = function(){
+    savedSearchList.empty();
+    for (var i=0; i<searchKeys.length; i++){
+      var listItem = $("<li>");
+      listItem.addClass("listItem");
+      listItem.attr("id", searchKeys[i])
+      listItem.html("<a href=#>" + searchKeys[i] + "</a>");
+      savedSearchList.append(listItem);
+    }
+  }
+
 
   //First button render to show default button set
   renderButtons();
+  addDropdownListItems();
 
   //Search button event handler
   $("#submit").click(function(){
    	event.preventDefault();
   	var searchTerm = $("#searchForm").val();
   	addAButton(searchTerm);
-  	$("#searchForm").val("");
   })
+
+  $(document).on("click", "#clear", function(){
+   	event.preventDefault();
+  	$("#searchForm").val("");
+  	console.log(searchKeys);
+  });
 
   //Search term button event handler
   buttonPanel.on("click", ".searchTermsBtn", function(){
